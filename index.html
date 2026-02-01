@@ -41,21 +41,27 @@
             padding: 0 20px;
         }
         
-        /* Header & Navigation - FIXED */
+        /* Header & Navigation - FIXED STRUCTURE */
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 18px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
-        .header-content {
+        .header-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .header-top {
+            display: flex;
             align-items: center;
+            padding: 15px 0;
+            gap: 15px;
         }
         
         .logo {
@@ -63,6 +69,7 @@
             align-items: center;
             gap: 15px;
             transition: var(--transition);
+            flex-shrink: 0;
         }
         
         .logo:hover {
@@ -75,7 +82,9 @@
             transition: var(--transition);
         }
         
-        .logo:hover .logo-icon {
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
         
         .logo-text h1 {
@@ -84,27 +93,59 @@
             font-weight: 700;
             margin-bottom: 5px;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
         
         .logo-text p {
             font-size: 0.9rem;
             opacity: 0.9;
             font-weight: 300;
+            white-space: nowrap;
         }
         
-        /* NAVBAR FIXES START HERE */
+        .header-heading {
+            flex: 1;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .header-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .header-heading p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 300;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* NAVBAR STRUCTURE - Always in row */
         nav {
-            display: flex;
-            align-items: center;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 0;
         }
         
         nav ul {
             display: flex;
             list-style: none;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            width: 100%;
         }
         
         nav ul li {
-            margin-left: 30px;
             position: relative;
         }
         
@@ -114,9 +155,10 @@
             font-weight: 500;
             font-size: 1.05rem;
             transition: var(--transition);
-            padding: 5px 0;
+            padding: 8px 12px;
             position: relative;
             white-space: nowrap;
+            display: inline-block;
         }
         
         nav ul li a::after {
@@ -138,58 +180,7 @@
             color: var(--secondary-color);
         }
         
-        /* Mobile Menu Button - Fixed to be visible */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 5px;
-            z-index: 1001;
-        }
-        
-        .mobile-menu-btn:hover {
-            color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-        
-        /* Mobile Menu Styles */
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-color);
-            flex-direction: column;
-            padding: 20px 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-        }
-        
-        .mobile-menu.active {
-            display: flex;
-        }
-        
-        .mobile-menu li {
-            margin: 0;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .mobile-menu li a {
-            display: block;
-            padding: 15px 20px;
-            font-size: 1.1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .mobile-menu li:last-child a {
-            border-bottom: none;
-        }
+
         
         /* Hero Section */
         .hero {
@@ -1040,10 +1031,14 @@
             color: #aaaaaa;
         }
         
-        /* RESPONSIVE DESIGN FIXES FOR NAVBAR */
+        /* RESPONSIVE DESIGN FIXES */
         @media (max-width: 1100px) {
             nav ul li {
-                margin-left: 20px;
+                margin-left: 10px;
+            }
+            
+            nav ul li a {
+                padding: 8px 10px;
             }
         }
         
@@ -1069,43 +1064,35 @@
             }
             
             /* Navbar responsive for tablet */
-            nav ul li {
-                margin-left: 15px;
-            }
-            
             nav ul li a {
                 font-size: 1rem;
+                padding: 8px 8px;
             }
         }
         
         @media (max-width: 900px) {
-            /* Hide desktop menu, show mobile button */
-            .desktop-menu {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header-content {
+            /* Header structure for mobile */
+            .header-top {
+                padding: 15px 0 10px;
                 flex-wrap: wrap;
             }
             
             .logo {
-                order: 1;
+                flex: 0 0 auto;
+            }
+            
+            .header-heading {
                 flex: 1;
+                min-width: 200px;
+                padding: 0 10px;
             }
             
-            .mobile-menu-btn {
-                order: 2;
+            .header-heading h1 {
+                font-size: 1.8rem;
             }
             
-            nav {
-                order: 3;
-                width: 100%;
-                margin-top: 15px;
-                justify-content: center;
+            .header-heading p {
+                font-size: 0.8rem;
             }
         }
         
@@ -1145,17 +1132,26 @@
             .map-icon i {
                 font-size: 4rem;
             }
-        }
-        
-        @media (min-width: 901px) {
-            .mobile-menu {
-                display: none !important;
+            
+            /* Logo and heading for smaller screens */
+            .logo-text h1 {
+                font-size: 1.5rem;
             }
             
-            .desktop-menu {
-                display: flex;
+            .logo-text p {
+                font-size: 0.7rem;
+            }
+            
+            .header-heading h1 {
+                font-size: 1.6rem;
+            }
+            
+            .header-heading p {
+                font-size: 0.75rem;
             }
         }
+        
+
         
         @media (max-width: 576px) {
             .section-title h2 {
@@ -1199,26 +1195,56 @@
                 padding: 20px;
             }
             
+            /* Even smaller screens */
+            .header-top {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+            
             .logo-text h1 {
-                font-size: 1.8rem;
+                font-size: 1.3rem;
             }
             
             .logo-text p {
-                font-size: 0.8rem;
+                font-size: 0.65rem;
+            }
+            
+            .header-heading h1 {
+                font-size: 1.4rem;
+            }
+            
+            .header-heading p {
+                font-size: 0.7rem;
+            }
+            
+            .logo {
+                gap: 8px;
             }
         }
         
         @media (max-width: 480px) {
-            .header-content {
-                padding: 10px 0;
+            .header-top {
+                padding: 12px 0 8px;
             }
             
             .logo {
-                gap: 10px;
+                gap: 8px;
             }
             
             .logo-text h1 {
-                font-size: 1.6rem;
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.6rem;
+            }
+            
+            .header-heading h1 {
+                font-size: 1.3rem;
+            }
+            
+            .header-heading p {
+                font-size: 0.65rem;
             }
             
             .hero h1 {
@@ -1243,6 +1269,43 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            
+            nav {
+                padding: 8px 0;
+            }
+            
+            nav ul {
+                gap: 5px;
+            }
+            
+            nav ul li a {
+                font-size: 0.9rem;
+                padding: 6px 8px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            /* For very small screens */
+            .header-heading {
+                min-width: 150px;
+            }
+            
+            .header-heading h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header-heading p {
+                font-size: 0.6rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+            
+            nav ul li a {
+                font-size: 0.85rem;
+                padding: 5px 6px;
+            }
         }
         
         /* Animation for elements on scroll */
@@ -1261,28 +1324,28 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="logo.jpg" alt="logo" style="max-width: 20%; max-height: 20%; border-radius: 50%;"/>
+        <div class="container header-container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="logo.jpg" alt="logo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"/>
+                    </div>
+                    <!-- <div class="logo-text">
+                        <h1>Retro Talks</h1>
+                        <p>Traditional Flavors</p>
+                    </div> -->
                 </div>
-                <div class="logo-text">
+                
+                <div class="header-heading">
                     <h1>Retro Talks</h1>
                     <p>Traditional Flavors Reimagined</p>
                 </div>
+                
+
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+            
             <nav>
-                <ul class="desktop-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#products">Menu</a></li>
-                    <li><a href="#route">Visit Us</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <ul class="mobile-menu" id="mobileMenu">
+                <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#products">Menu</a></li>
@@ -1361,10 +1424,10 @@
             <p class="section-subtitle fade-in">Explore our carefully curated selection of traditional favorites and modern creations</p>
             
             <div class="category-filter fade-in">
-                <button class="category-btn active" data-category="all">All Items</button>
-                <button class="category-btn" data-category="morning">Healthy Start</button>
-                <button class="category-btn" data-category="afternoon">Traditional</button>
-                <button class="category-btn" data-category="evening">Tasty Snacks</button>
+                <button class="category-btn active" data-category="all">All </button>
+                <button class="category-btn" data-category="morning">Morning</button>
+                <button class="category-btn" data-category="afternoon">Afternoon</button>
+                <button class="category-btn" data-category="evening">Evening</button>
             </div>
             
             <div class="products-grid">
@@ -1498,11 +1561,11 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#products"><i class="fas fa-chevron-right"></i> Menu</a></li>
-                        <li><a href="#route"><i class="fas fa-chevron-right"></i> Visit Us</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#products">Menu</a></li>
+                        <li><a href="#route">Visit Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -1811,7 +1874,7 @@
                         <div class="product-price">${product.price}</div>
                     </div>
                     <button class="view-btn" data-id="${product.id}">
-                        <i class="fas fa-search-plus"></i>
+                        <i class="far fa-eye"></i>
                     </button>
                 `;
                 
@@ -1918,29 +1981,6 @@
 
         // Setup event listeners
         function setupEventListeners() {
-            // Mobile menu toggle
-            mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-                // Change icon based on menu state
-                const icon = this.querySelector('i');
-                if (mobileMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-            
-            // Close mobile menu when clicking on a link
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                });
-            });
-            
             // Contact form submission
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1971,7 +2011,7 @@
                             const targetElement = document.querySelector(targetId);
                             if (targetElement) {
                                 window.scrollTo({
-                                    top: targetElement.offsetTop - 80,
+                                    top: targetElement.offsetTop - 100,
                                     behavior: 'smooth'
                                 });
                             }
